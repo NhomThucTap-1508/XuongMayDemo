@@ -7,8 +7,12 @@ public class Line
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int LineID { get; set; }
     public string LineName { get; set; }
+
     [StringLength(450)]
-    public string Id { get; set; }
+    [Required]
+    public required string Id { get; set; }
+
+    [ForeignKey("Id")]
     public ApplicationUser ApplicationUser { get; set; }
 
     public List<Task> Tasks { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace testthuctap.data.migrations
 {
     /// <inheritdoc />
-    public partial class initDB : Migration
+    public partial class initdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -112,17 +112,17 @@ namespace testthuctap.data.migrations
                     LineID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Id = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Line", x => x.LineID);
                     table.ForeignKey(
-                        name: "FK_Line_User_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
+                        name: "FK_Line_User_Id",
+                        column: x => x.Id,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,9 +258,9 @@ namespace testthuctap.data.migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Line_ApplicationUserId",
+                name: "IX_Line_Id",
                 table: "Line",
-                column: "ApplicationUserId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_ProductID",

@@ -253,9 +253,9 @@ C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\staticwebassets\msbuild.b
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.testthuctap.props
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\staticwebassets.pack.json
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\scopedcss\bundle\testthuctap.styles.css
-C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\testthuc.DDA19E15.Up2Date
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\testthuctap.dll
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\refint\testthuctap.dll
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\testthuctap.pdb
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\testthuctap.genruntimeconfig.cache
 C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\ref\testthuctap.dll
+C:\Users\AnhNhi\Documents\testthuctap\obj\Debug\net7.0\testthuctap.csproj.CopyComplete

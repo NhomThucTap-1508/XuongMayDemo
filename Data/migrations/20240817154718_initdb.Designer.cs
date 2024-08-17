@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace testthuctap.data.migrations
 {
     [DbContext(typeof(DBContextUser))]
-    [Migration("20240816102534_initDB")]
-    partial class initDB
+    [Migration("20240817154718_initdb")]
+    partial class initdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,9 +114,6 @@ namespace testthuctap.data.migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LineID"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Id")
                         .IsRequired()
                         .HasMaxLength(450)
@@ -128,7 +125,7 @@ namespace testthuctap.data.migrations
 
                     b.HasKey("LineID");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("Id");
 
                     b.ToTable("Line");
                 });
@@ -350,7 +347,9 @@ namespace testthuctap.data.migrations
                 {
                     b.HasOne("ApplicationUser", "ApplicationUser")
                         .WithMany("Lines")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ApplicationUser");
                 });
