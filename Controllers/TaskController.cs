@@ -19,7 +19,7 @@ namespace testthuctap.Controllers
             var tasks = await taskService.GetTasks();
             return Ok(tasks);
         }
-        [HttpPost]
+        [HttpPost("CreateTask")]
         [Authorize(Roles = "Admin,LineLeader")]
 
         public async Task<IActionResult> CreateTask([FromBody] CreateTaskModel createTaskModel)
