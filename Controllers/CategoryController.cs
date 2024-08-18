@@ -46,8 +46,13 @@ public class CategoryController : ControllerBase
         public string CategoryName { get; set; } = null!;
     }
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutCategory(int id, Category category)
+    public async Task<IActionResult> PutCategory(int id, CategoryAddDto categoryDto)
     {
+        var category = new Category
+        {
+            CategoryID = categoryDto.CategoryId,
+            CategoryName = categoryDto.CategoryName
+        };
         if (id != category.CategoryID)
         {
             return BadRequest();
