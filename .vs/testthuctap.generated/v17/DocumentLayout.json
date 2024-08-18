@@ -1,7 +1,24 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\AnhNhi\\Documents\\testthuctap\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|d:\\e\\dai hoc\\thuctap\\xuongmaydemo\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|d:\\e\\dai hoc\\thuctap\\xuongmaydemo\\data\\entity\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|solutionrelative:data\\entity\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|d:\\e\\dai hoc\\thuctap\\xuongmaydemo\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|solutionrelative:controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|d:\\e\\dai hoc\\thuctap\\xuongmaydemo\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6097F3E0-D146-4727-98D4-9CFD5D3EE2BA}|testthuctap.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,19 +26,59 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-18T03:07:55.784Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\Data\\Entity\\Category.cs",
+              "RelativeDocumentMoniker": "Data\\Entity\\Category.cs",
+              "ToolTip": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\Data\\Entity\\Category.cs",
+              "RelativeToolTip": "Data\\Entity\\Category.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T03:03:21.747Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoryController.cs",
+              "ToolTip": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "Controllers\\CategoryController.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAABcAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T02:11:49.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
+              "ToolTip": "D:\\E\\DAI HOC\\ThucTap\\XuongMayDemo\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "Controllers\\OrderController.cs",
+              "ViewState": "AQIAAD0AAAAAAAAAAAA3wEkAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T02:11:43.304Z",
+              "EditorCaption": ""
             }
           ]
         }
