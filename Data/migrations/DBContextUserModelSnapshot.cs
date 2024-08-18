@@ -315,7 +315,11 @@ namespace testthuctap.data.migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskID"));
 
-                    b.Property<int?>("LineID")
+                    b.Property<string>("CreateBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LineID")
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
@@ -426,9 +430,11 @@ namespace testthuctap.data.migrations
 
             modelBuilder.Entity("Task", b =>
                 {
-                    b.HasOne("Line", null)
+                    b.HasOne("Line", "line")
                         .WithMany("Tasks")
-                        .HasForeignKey("LineID");
+                        .HasForeignKey("LineID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Order", "Order")
                         .WithMany("Tasks")
@@ -437,6 +443,8 @@ namespace testthuctap.data.migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("line");
                 });
 
             modelBuilder.Entity("ApplicationUser", b =>

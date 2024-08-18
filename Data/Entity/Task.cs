@@ -11,7 +11,9 @@ public class Task
     [Column(TypeName = "ntext")]
     [StringLength(256)]
     public string Note { get; set; }
-
+    public int LineID { get; set; }
+    public required string CreateBy { get; set; }
+    public Line line { get; set; }
     public int OrderID { get; set; }
     public Order Order { get; set; }
 
