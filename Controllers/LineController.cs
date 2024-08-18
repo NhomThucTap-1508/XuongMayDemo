@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,69 +14,62 @@ namespace testthuctap.Controllers
         {
             _context = context;
         }
-        [HttpGet]
+        [HttpGet("ReadLine")]
+        [Authorize(Roles = "Admin,LineLeader")]
         public async Task<ActionResult<IEnumerable<Line>>> GetAllLines()
         {
             return await _context.Line.ToListAsync();
         }
-        public class LineDto
+        public class LineCreateDto
         {
-            public int LineId { get; set; }
             public string LineName { get; set; }
             public string Id { get; set; }
         }
-        [HttpPost]
-        public async Task<ActionResult<Line>> PostLine(LineDto lineDto)
+        public class LineUpdateDto
+        {
+            public string LineName { get; set; }
+        }
+        [HttpPost("CreateLine")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Line>> PostLine(LineCreateDto lineCreateDto)
         {
             var line = new Line
             {
-                LineID = lineDto.LineId,
-                LineName = lineDto.LineName,
-                Id = lineDto.Id
+                LineName = lineCreateDto.LineName,
+                Id = lineCreateDto.Id
             };
             _context.Line.Add(line);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLine", new { id = line.LineID }, line);
-        }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLine(int id, LineDto lineDto)
-        {
-            if (id != lineDto.LineId)
+            int rowChange = await _context.SaveChangesAsync();
+            if (rowChange > 0)
             {
-                return BadRequest();
+                return Ok("Create new line successful");
             }
-
-            var line = await _context.Line.FindAsync(id);
+            return StatusCode(500, "Create new line failed");
+        }
+        [HttpPut("UpdateLine")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> PutLine(int lineId, LineUpdateDto lineUpdateDto)
+        {
+            var line = await _context.Line.FindAsync(lineId);
             if (line == null)
             {
                 return NotFound();
             }
 
-            line.LineName = lineDto.LineName;
-            line.Id = lineDto.Id;
-
-            try
+            line.LineName = lineUpdateDto.LineName;
+            _context.Line.Update(line);
+            int rowChange = await _context.SaveChangesAsync();
+            if (rowChange > 0)
             {
-                await _context.SaveChangesAsync();
+                return Ok("Update line successful");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LineExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok("Update successful");
-                }
-            }
-            return NoContent();
+            return StatusCode(500, "Update line failed");
         }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLine(int id)
+        [HttpDelete("DeleteLine")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteLine(int lineId)
         {
-            var line = await _context.Line.FindAsync(id);
+            var line = await _context.Line.FindAsync(lineId);
             if (line == null)
             {
                 return NotFound();
@@ -83,11 +77,7 @@ namespace testthuctap.Controllers
 
             _context.Line.Remove(line);
             await _context.SaveChangesAsync();
-            return NoContent();
-        }
-        private bool LineExists(int id)
-        {
-            return _context.Line.Any(e => e.LineID == id);
+            return StatusCode(500, "Delete successful");
         }
     }
 }
