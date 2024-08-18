@@ -297,8 +297,7 @@ namespace testthuctap.data.migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductID");
 
@@ -409,7 +408,7 @@ namespace testthuctap.data.migrations
             modelBuilder.Entity("Order", b =>
                 {
                     b.HasOne("Product", "Product")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -419,13 +418,13 @@ namespace testthuctap.data.migrations
 
             modelBuilder.Entity("Product", b =>
                 {
-                    b.HasOne("Category", "category")
+                    b.HasOne("Category", "Category")
                         .WithMany("products")
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("category");
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Task", b =>
@@ -465,6 +464,11 @@ namespace testthuctap.data.migrations
             modelBuilder.Entity("Order", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Product", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
