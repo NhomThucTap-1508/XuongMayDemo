@@ -238,8 +238,9 @@ namespace testthuctap.data.migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TaskName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Note = table.Column<string>(type: "ntext", maxLength: 256, nullable: false),
-                    OrderID = table.Column<int>(type: "int", nullable: false),
-                    LineID = table.Column<int>(type: "int", nullable: true)
+                    LineID = table.Column<int>(type: "int", nullable: false),
+                    CreateBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -248,7 +249,8 @@ namespace testthuctap.data.migrations
                         name: "FK_Task_Line_LineID",
                         column: x => x.LineID,
                         principalTable: "Line",
-                        principalColumn: "LineID");
+                        principalColumn: "LineID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Task_Order_OrderID",
                         column: x => x.OrderID,
