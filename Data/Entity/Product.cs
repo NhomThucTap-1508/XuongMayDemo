@@ -15,4 +15,6 @@ public class Product
     public int CategoryID { get; set; }
 
     public required Category category { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
