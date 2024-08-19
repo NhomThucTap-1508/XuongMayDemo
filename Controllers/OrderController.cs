@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 namespace testthuctap.Controllers
 {
@@ -15,7 +17,8 @@ namespace testthuctap.Controllers
         }
 
         // show Order
-        [HttpGet]
+        [HttpGet("GetOrder")]
+        [Authorize(Roles = "Admin,LineLeader")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             var orders = await _context.Order.ToListAsync();
@@ -23,7 +26,8 @@ namespace testthuctap.Controllers
         }
 
         //show Order By ID
-        [HttpGet("{id}")]
+        [HttpGet("GetOrderById")]
+        [Authorize(Roles = "Admin,LineLeader")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
@@ -36,46 +40,64 @@ namespace testthuctap.Controllers
             return Ok(order);
         }
 
+        public class OrderNew        {
+            public int OrderID { get; set; }
+
+            public int CategoryID { get; set; }
+
+            public int ProductID { get; set; }
+
+            public int Quantity { get; set; }
+        }
+
         //Create New Order
-        [HttpPost]
-        public async Task<ActionResult<Order>> CreateOrder(Order order)
+        [HttpPost("CreateOrder")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Order>> CreateOrder(OrderNew orderDTO)
         {
+            var order = new Order
+            {
+                OrderID = orderDTO.OrderID,
+                CategoryID = orderDTO.CategoryID,
+                ProductID = orderDTO.ProductID,
+                Quantity = orderDTO.Quantity
+            };
             _context.Order.Add(order);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetOrder), new { id = order.OrderID }, order);
+            int rowChange = await _context.SaveChangesAsync();
+            if (rowChange > 0)
+            {
+                return Ok("Success");
+            }
+            return StatusCode(500, "Failed");
         }
+
         //Update Order
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateOrder(int id, Order order)
+        [HttpPut("UpdateOrder")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateOrder(int id, OrderNew orderDTO)
         {
-            if (id != order.OrderID)
+            var order = await _context.Order.FindAsync(id);
+            if (order == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+            order.CategoryID = orderDTO.CategoryID;
+            order.ProductID = orderDTO.ProductID;
+            order.Quantity = orderDTO.Quantity;
+            _context.Order.Update(order);
 
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
+            int rowChange = await _context.SaveChangesAsync();
+            if (rowChange > 0)
             {
-                await _context.SaveChangesAsync();
+                return Ok("Success");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!(_context.Order.Any(e => e.OrderID == id)))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return StatusCode(500, "Update Failed!!!");
         }
+
+
         //Detele Order
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteOrder")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
             var order = await _context.Order.FindAsync(id);
