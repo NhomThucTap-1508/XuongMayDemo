@@ -39,7 +39,25 @@ namespace testthuctap.Controllers
 
             return Ok(order);
         }
-
+        //Pagination
+        [HttpGet("Pagination")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<IActionResult> Pagination(int pageSize, int pageNumber)
+        {
+            if (pageSize <= 0 || pageNumber <= 0)
+            {
+                return BadRequest();
+            }
+            var skip = (pageNumber - 1) * pageSize;
+            var ord = await _context.Order.Skip(skip).Take(pageSize).Select(l => new Order
+            {
+                OrderID = l.OrderID,
+                ProductID = l.ProductID,
+                CategoryID = l.CategoryID,
+                Quantity = l.Quantity
+            }).ToListAsync();
+            return Ok(ord);
+        }
         public class OrderNew        {
             public int OrderID { get; set; }
 

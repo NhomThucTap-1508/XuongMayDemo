@@ -39,6 +39,24 @@ namespace testthuctap.Controllers
 
             return Ok(users);
         }
+        //Pagination
+        [HttpGet("Pagination")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<IActionResult> Pagination(int pageSize, int pageNumber)
+        {
+            if (pageSize <= 0 || pageNumber <= 0)
+            {
+                return BadRequest();
+            }
+            var skip = (pageNumber - 1) * pageSize;
+            var urs = await _context.Users.Skip(skip).Take(pageSize).Select(l => new ApplicationUser
+            {
+                UserName = l.UserName,
+                Email = l.Email,
+                PhoneNumber = l.PhoneNumber
+            }).ToListAsync();
+            return Ok(urs);
+        }
 
         public class UserNew
         {

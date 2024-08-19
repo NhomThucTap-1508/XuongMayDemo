@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("testthuctap")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90eecce084a624e20228e282e506060e8e14fbd7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86a23e195ffc1f847d20c78a13c132e8eb56967e")]
 [assembly: System.Reflection.AssemblyProductAttribute("testthuctap")]
 [assembly: System.Reflection.AssemblyTitleAttribute("testthuctap")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
