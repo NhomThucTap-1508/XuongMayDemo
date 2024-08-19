@@ -22,6 +22,10 @@ namespace testthuctap.Controllers
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
+            if (users == null)
+            {
+                return NotFound();
+    }
             return Ok(users);
         }
 
