@@ -105,7 +105,7 @@ namespace testthuctap.Controllers
 
             _context.Line.Remove(line);
             await _context.SaveChangesAsync();
-            return StatusCode(500, "Delete successful");
+            return StatusCode(500, "Delete line successful");
         }
     }
 }
