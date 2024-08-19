@@ -14,11 +14,39 @@ namespace testthuctap.Controllers
         {
             _context = context;
         }
-        [HttpGet("ReadLine")]
+        [HttpGet("ReadAllLine")]
         [Authorize(Roles = "Admin,LineLeader")]
         public async Task<ActionResult<IEnumerable<Line>>> GetAllLines()
         {
             return await _context.Line.ToListAsync();
+        }
+        [HttpGet("ReadLineById")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<ActionResult<Line>> GetLineById(int lineId)
+        {
+            var line = await _context.Line.FindAsync(lineId);
+            if (line == null)
+            {
+                return NotFound("Cannot find this line id");
+            }
+            return line;
+        }
+        [HttpGet("Pagination")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<IActionResult> Pagination(int pageSize, int pageNumber)
+        {
+            if (pageSize <= 0 || pageNumber <= 0)
+            {
+                return BadRequest("PageSize and PageNumber must be greater than zero");
+            }
+            var skip = (pageNumber - 1) * pageSize;
+            var lines = await _context.Line.Skip(skip).Take(pageSize).Select(l => new Line
+            {
+                LineID = l.LineID,
+                LineName = l.LineName,
+                Id = l.Id
+            }).ToListAsync();
+            return Ok(lines);
         }
         public class LineCreateDto
         {
