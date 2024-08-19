@@ -26,7 +26,7 @@ public class CategoryController : ControllerBase
     }
 
     // GET: api/Categories/5: Lấy 1 trong các loại sản phẩm
-    [HttpGet("Id")]
+    [HttpGet("GetCategoryId")]
     [Authorize(Roles = "Admin,LineLeader")]
     public async Task<ActionResult<Category>> GetCategory(int id)
     {
@@ -101,7 +101,7 @@ public class CategoryController : ControllerBase
         _context.Category.Remove(category);
         await _context.SaveChangesAsync();
 
-        return StatusCode(500,"Delete successful!!!");
+        return Ok("Deleto successful!!");
     }
 
     private bool CategoryExists(int id)
