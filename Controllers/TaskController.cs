@@ -60,5 +60,36 @@ namespace testthuctap.Controllers
             }
             return NotFound();
         }
+        [HttpGet("Pagination")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<IActionResult> Pagination([FromQuery] int pageSize, [FromQuery] int pageNumber)
+        {
+            var result = await taskService.Pagination(pageSize, pageNumber);
+            return Ok(result);
+        }
+        [HttpGet("GetTaskByUser")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetTasksByUser([FromQuery] string id)
+        {
+            var user = await taskService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound("Không tìm thấy người dùng này");
+            }
+            var result = await taskService.GetTaskByUserAsync(user);
+            return Ok(result);
+        }
+        [HttpGet("GetTaskById")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetTaskById([FromQuery] int IdTask)
+        {
+            var result = await taskService.GetTaskById(IdTask);
+            if (result == null)
+            {
+                return NotFound("Không tìm thấy!");
+            }
+            return Ok(result);
+
+        }
     }
 }
