@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,14 +20,16 @@ namespace testthuctap.Controllers
         }
 
         // GET: api/Products
-        [HttpGet]
+        [HttpGet("GetAllProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Product.ToListAsync();
         }
 
         // GET: api/Products/5
-        [HttpGet("{id}")]
+        [HttpGet("GetProductId")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var product = await _context.Product.FindAsync(id);
@@ -55,7 +58,8 @@ namespace testthuctap.Controllers
             public int CategoryId { get; set; }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProduct(int id, ProductUpdateDto productDto)
         {
             var product = await _context.Product.FindAsync(id);
@@ -67,29 +71,17 @@ namespace testthuctap.Controllers
             product.ProductName = productDto.ProductName;
             product.Price = productDto.Price;
             product.CategoryID = productDto.CategoryId;
-
-            try
-            {
-                await _context.SaveChangesAsync();
+            int rowchange = await _context.SaveChangesAsync();
+            if (rowchange > 0) {
+                return Ok("Update product sucessful!!!");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return StatusCode(500, "Update product unsuccessful!!!");
         }
 
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("CreateProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Product>> PostProduct(ProductAddDto productDto)
         {
             var product = new Product
@@ -100,13 +92,17 @@ namespace testthuctap.Controllers
             };
 
             _context.Product.Add(product);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProduct", new { id = product.ProductID }, product);
+            int rowchange = await _context.SaveChangesAsync();
+            if (rowchange > 0)
+            {
+                return Ok("Create product sucessful!!!");
+            }
+            return StatusCode(500, "Create product unsuccessful!!!");
         }
 
         // DELETE: api/Products/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteProduct")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Product.FindAsync(id);
@@ -118,7 +114,7 @@ namespace testthuctap.Controllers
             _context.Product.Remove(product);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok("Delete product successful!!!");
         }
 
         private bool ProductExists(int id)
