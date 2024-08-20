@@ -19,7 +19,7 @@ public class CategoryController : ControllerBase
 
     // GET: api/Categories: Lấy toàn bộ danh sách loại sản phẩm
     [HttpGet("GetAllCategory")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,LineLeader")]
     public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
     {
         return await _context.Category.ToListAsync();
@@ -39,7 +39,36 @@ public class CategoryController : ControllerBase
 
         return category;
     }
+    [HttpGet("GetCategoryByName")]
+    [Authorize(Roles = "Admin,LineLeader")]
+    public async Task<ActionResult<Category>> GetCategory(string name)
+    {
+        var category = await _context.Category.FirstOrDefaultAsync(c => c.CategoryName == name);
 
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        return category;
+    }
+
+    [HttpGet("Pagination")]
+    [Authorize(Roles = "Admin,LineLeader")]
+    public async Task<IActionResult> Pagination(int pageSize, int pageNumber)
+    {
+        if (pageSize <= 0 || pageNumber <= 0)
+        {
+            return BadRequest("PageSize and PageNumber must be greater than zero");
+        }
+        var skip = (pageNumber - 1) * pageSize;
+        var category = await _context.Category.Skip(skip).Take(pageSize).Select(c => new Category
+        {
+            CategoryID = c.CategoryID,
+            CategoryName = c.CategoryName
+        }).ToListAsync();
+        return Ok(category);
+    }
     // PUT: api/Categories/5: Thêm mới 1 loại sản phẩm
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     public class CategoryAddDto
@@ -80,11 +109,12 @@ public class CategoryController : ControllerBase
         };
         _context.Category.Add(category);
         int rowChange = await _context.SaveChangesAsync();
-        if (rowChange > 0) {
+        if (rowChange > 0)
+        {
             return Ok("Create category sucessful!!!");
         }
         return StatusCode(500, "Create category unsuccessful!!!");
-        
+
     }
 
     // DELETE: api/Categories/5: Xóa 1 loại sản phẩm
