@@ -21,7 +21,7 @@ namespace testthuctap.Controllers
 
         // GET: api/Products
         [HttpGet("GetAllProduct")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,LineLeader")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Product.ToListAsync();
@@ -29,7 +29,7 @@ namespace testthuctap.Controllers
 
         // GET: api/Products/5
         [HttpGet("GetProductId")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,LineLeader")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var product = await _context.Product.FindAsync(id);
@@ -41,7 +41,35 @@ namespace testthuctap.Controllers
 
             return product;
         }
+        [HttpGet("GetProductByName")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<ActionResult<Product>> GetProductByName(string name)
+        {
+            var product = await _context.Product.FirstOrDefaultAsync(c => c.ProductName == name);
 
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return product;
+        }
+        [HttpGet("Pagination")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<IActionResult> Pagination(int pageSize, int pageNumber)
+        {
+            if (pageSize <= 0 || pageNumber <= 0)
+            {
+                return BadRequest("PageSize and PageNumber must be greater than zero");
+            }
+            var skip = (pageNumber - 1) * pageSize;
+            var product = await _context.Product.Skip(skip).Take(pageSize).Select(p => new Product
+            {
+                ProductID = p.ProductID,
+                ProductName = p.ProductName
+            }).ToListAsync();
+            return Ok(product);
+        }
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         public class ProductAddDto
@@ -72,7 +100,8 @@ namespace testthuctap.Controllers
             product.Price = productDto.Price;
             product.CategoryID = productDto.CategoryId;
             int rowchange = await _context.SaveChangesAsync();
-            if (rowchange > 0) {
+            if (rowchange > 0)
+            {
                 return Ok("Update product sucessful!!!");
             }
             return StatusCode(500, "Update product unsuccessful!!!");
