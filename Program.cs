@@ -93,6 +93,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddControllers();
 // Đăng ký dịch vụ gồm interface và service
+
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
