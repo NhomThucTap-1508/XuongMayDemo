@@ -25,7 +25,7 @@ namespace testthuctap.Controllers
             if (users == null)
             {
                 return NotFound();
-    }
+            }
             return Ok(users);
         }
 

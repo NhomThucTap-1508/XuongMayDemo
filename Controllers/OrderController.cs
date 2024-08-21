@@ -53,12 +53,12 @@ namespace testthuctap.Controllers
             {
                 OrderID = l.OrderID,
                 ProductID = l.ProductID,
-                CategoryID = l.CategoryID,
                 Quantity = l.Quantity
             }).ToListAsync();
             return Ok(ord);
         }
-        public class OrderNew        {
+        public class OrderNew
+        {
             public int OrderID { get; set; }
 
             public int CategoryID { get; set; }
@@ -76,7 +76,6 @@ namespace testthuctap.Controllers
             var order = new Order
             {
                 OrderID = orderDTO.OrderID,
-                CategoryID = orderDTO.CategoryID,
                 ProductID = orderDTO.ProductID,
                 Quantity = orderDTO.Quantity
             };
@@ -99,7 +98,6 @@ namespace testthuctap.Controllers
             {
                 return NotFound();
             }
-            order.CategoryID = orderDTO.CategoryID;
             order.ProductID = orderDTO.ProductID;
             order.Quantity = orderDTO.Quantity;
             _context.Order.Update(order);

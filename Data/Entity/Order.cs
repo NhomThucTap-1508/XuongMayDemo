@@ -10,8 +10,6 @@ public class Order
     public int Quantity { get; set; }
 
     public int ProductID { get; set; }
-
-    public int CategoryID { get; set; }
     public Product Product { get; set; }
     public List<Task> Tasks { get; set; }
 }

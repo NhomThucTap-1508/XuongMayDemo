@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace testthuctap.data.migrations
 {
     /// <inheritdoc />
-    public partial class initdb : Migration
+    public partial class fixdatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

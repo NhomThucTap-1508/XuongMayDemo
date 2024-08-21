@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace testthuctap.data.migrations
 {
     [DbContext(typeof(DBContextUser))]
-    [Migration("20240818093107_initdb")]
-    partial class initdb
+    [Migration("20240821064958_fixdatabase")]
+    partial class fixdatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
