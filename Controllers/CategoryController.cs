@@ -131,7 +131,7 @@ public class CategoryController : ControllerBase
         _context.Category.Remove(category);
         await _context.SaveChangesAsync();
 
-        return Ok("Deleto successful!!");
+        return Ok("Delete successful!!");
     }
 
     private bool CategoryExists(int id)
