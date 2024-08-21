@@ -31,6 +31,17 @@ namespace testthuctap.Controllers
             }
             return line;
         }
+        [HttpGet("ReadLineByLineName")]
+        [Authorize(Roles = "Admin,LineLeader")]
+        public async Task<ActionResult<Line>> GetLineByLineName(string lineName)
+        {
+            var line = await _context.Line.FirstOrDefaultAsync(l => l.LineName == lineName);
+            if (line == null)
+            {
+                return NotFound("Cannot find this line name");
+            }
+            return line;
+        }
         [HttpGet("Pagination")]
         [Authorize(Roles = "Admin,LineLeader")]
         public async Task<IActionResult> Pagination(int pageSize, int pageNumber)
