@@ -61,8 +61,6 @@ namespace testthuctap.Controllers
         {
             public int OrderID { get; set; }
 
-            public int CategoryID { get; set; }
-
             public int ProductID { get; set; }
 
             public int Quantity { get; set; }
