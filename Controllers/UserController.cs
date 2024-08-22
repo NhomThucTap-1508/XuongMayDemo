@@ -32,7 +32,7 @@ namespace testthuctap.Controllers
         //show User by 
         [HttpGet("GetUserById")]
         [Authorize(Roles = "Admin,LineLeader")]
-        public async Task<ActionResult<UserModel>> GetUser(int id)
+        public async Task<ActionResult<UserModel>> GetUser(string id)
         {
             var users = await _context.Users.FindAsync(id);
 
@@ -99,7 +99,7 @@ namespace testthuctap.Controllers
         //Update User
         [HttpPut("UpdateUser")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateUser(int id, UserUpdate userDTO)
+        public async Task<IActionResult> UpdateUser(string id, UserUpdate userDTO)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -123,7 +123,7 @@ namespace testthuctap.Controllers
         //Detele User
         [HttpDelete("DeleteUser")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
