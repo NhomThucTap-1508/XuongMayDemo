@@ -73,7 +73,6 @@ namespace testthuctap.Controllers
         {
             var order = new Order
             {
-                OrderID = orderDTO.OrderID,
                 ProductID = orderDTO.ProductID,
                 Quantity = orderDTO.Quantity
             };
